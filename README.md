@@ -102,4 +102,23 @@ Since Mosquitto runs on the Pi itself via Docker, `localhost` works fine.
 
 ---
 
-Add this to the README too?
+NOTES FOR MEMBERS:
+
+## MQTT Topics
+| Topic | Publisher | Description |
+|---|---|---|
+| factory/sensors/temperature | Isha (RPi) | Temperature in °C |
+| factory/sensors/humidity | Isha (RPi) | Humidity in % |
+| factory/sensors/smoke | Isha (RPi) | 0 = no smoke, 1 = smoke detected |
+| factory/camera/detection | Saloni (RPi) | 0 = no detection, 1 = human/fire detected |
+
+## Saloni — Detection Script Guide
+Publish to `factory/camera/detection` topic with:
+- `1` — human or fire detected in frame
+- `0` — nothing detected
+
+Example:
+```python
+client.publish("factory/camera/detection", 1)  # when detected
+client.publish("factory/camera/detection", 0)  # when clear
+```
