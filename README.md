@@ -48,3 +48,58 @@ IoT-based factory monitoring system with edge AI for fire and human detection.
 firebase output: 
 
 <img width="1446" height="728" alt="image" src="https://github.com/user-attachments/assets/03c1219a-e69e-4996-a67d-f4acde026de0" />
+
+
+ON HARDWARE :
+On RPi, here's the full setup:
+
+**Step 1 — Install Docker**
+```bash
+curl -fsSL https://get.docker.com | sh
+sudo usermod -aG docker pi
+sudo reboot
+```
+
+**Step 2 — Install Git and clone repo**
+```bash
+sudo apt install git -y
+git clone https://github.com/saibelgaonkar3/factory-monitor.git
+cd factory-monitor
+```
+
+**Step 3 — Add serviceAccount.json**
+Copy `serviceAccount.json` to the Pi (via USB or `scp` from laptop):
+```bash
+# on your laptop run this
+scp serviceAccount.json pi@<pi-ip>:~/factory-monitor/
+```
+
+**Step 4 — Run Docker**
+```bash
+docker compose up --build
+```
+
+**Step 5 — Isha runs her sensor script**
+```bash
+cd ~/
+pip install paho-mqtt
+python sensor_script.py  # her own script, not the simulator
+```
+
+**Step 6 — Saloni runs her ML script**
+```bash
+pip install ultralytics paho-mqtt opencv-python
+python detection_script.py  # her own script
+```
+
+---
+
+**Both Isha and Saloni** point their scripts to:
+```python
+client.connect("localhost", 1883)
+```
+Since Mosquitto runs on the Pi itself via Docker, `localhost` works fine.
+
+---
+
+Add this to the README too?
