@@ -43,3 +43,8 @@ IoT-based factory monitoring system with edge AI for fire and human detection.
 2. `cd factory-monitor`
 3. Add `serviceAccount.json`
 4. `docker compose up --build`
+
+
+firebase output: 
+
+<img width="1446" height="728" alt="image" src="https://github.com/user-attachments/assets/03c1219a-e69e-4996-a67d-f4acde026de0" />
