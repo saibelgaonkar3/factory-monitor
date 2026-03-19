@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+
+  bridge:
+    build: .
+    depends_on:
+      - mosquitto
+    volumes:
+      - ./serviceAccount.json:/app/serviceAccount.json
+    environment:
+      - MQTT_HOST=mosquitto
